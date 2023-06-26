@@ -1,0 +1,62 @@
+자바스크립트 사용 방식
+ - inline 방식
+ - script 태그 이용
+ - 외부 파일 로드
+
+1)inline 방식
+ - inline 방식은 태그에 직접 자바스크립트를 기술하는 방식이다. 
+ - 장점은 태그에 연관된 스크립트가 분명하게 드러난다는 점이다. 
+ - 하지만 정보와 제어가 섞여 있기 때문에 HTML의 정보로서의 가치가 떨어진다.
+<!DOCTYPE html>
+<html>
+<body>
+    <input type="button" onclick="alert('Hello world')" value="Hello world" />
+</body>
+</html>
+
+2)script 태그 이용
+ - <script></script> 태그를 만들어서 여기에 자바스크립트 코드를 삽입하는 방식이다. 
+ - 장점은 html 태그와 js 코드를 분리할 수 있다는 점이다. 
+ - 여기서 script 태그는 body 태그의 끝에 위치하는 것이 좋다.
+<!DOCTYPE html>
+<html>
+<body>
+    <input type="button" id="hw" value="Hello world" />
+    <script type="text/javascript">
+        var hw = document.getElementById('hw');
+        hw.addEventListener('click', function(){
+            alert('Hello world');
+        })
+    </script>
+</body>
+</html>
+
+3)외부 파일 로드
+ - js를 별도의 파일로 분리할 수도 있다. 
+ - 장점은 보다 엄격하게 정보와 제어를 분리할 수 있다. 
+ - 하나의 js 파일을 여러 웹페이지에서 로드함으로서 js의 재활용성을 높일 수 있다. 
+ - 캐쉬를 통해서 속도의 향상, 전송량의 경량화를 도모할 수 있다.
+ - script 파일은 head 태그 보다 페이지의 하단에 위치시키는 것이 더 좋은 방법이다. 
+   (head 태그 안에 script 파일을 포함시키면 html을 전부 랜더링 하기 전에 시간을 소모하게 되어 사용자 경험을 떨어뜨린다)
+[script2.js]
+var hw = document.getElementById('hw');
+hw.addEventListener('click', function(){
+    alert('Hello world');
+})
+
+<!DOCTYPE html>
+<html>
+<body>
+    <input type="button" id="hw" value="Hello world" />
+    <script type="text/javascript" src="script2.js"></script>
+</body>
+</html>
+
+4)defer 사용
+ - script src를 head 태그 안에 포함시키면 랜더링 시간이 소모될 수 있다.
+ - 이떄 defer를 사용하면 브라우저는 defer 속성이 있는 스크립트를 백그라운드에서 다운로드 한다.
+ - 따라서 지연 스크립트를 다운로드 하는 도중에도 HTML 파싱이 멈추자 않고 defer 스크립트 실행은 페이지 구성이 끝날 때까지 지연된다.
+ - 지연 스크립트는 일반 스크립트와 마찬가지로 HTML에 추가된 순으로 실행된다.
+ <head>
+    <script src="script2.js" defer></script> /* defer 속성은 자바스크립트 파일을 head 태그에 삽입해도 실제 실행은 body 제일 아래서 된다. */
+ </head>

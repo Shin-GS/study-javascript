@@ -1,0 +1,42 @@
+console 객체는 브라우저의 디버깅 콘솔에 접근할 수 있는 메소드를 제공한다.
+
+console.assert(..)
+ - 첫번째 매개변수가 false인 경우 메시지와 스택 추적을 출력한다.
+ - console.assert(true, {number:1, msg:"asb"}) -> undefined
+ - console.assert(false, {number:1, msg:"asb"}) -> Assertion failed: {number: 1, msg: 'asb'}
+
+console.clear()
+  - 콘솔의 내용을 지운다.
+
+console.count(label)
+ - 주어진 레이블로 메서드를 호출한 횟수를 출력한다.
+ - 기본 label 값은 'default'이며 별도로 지정할 수 있다.
+
+console.countReset(label)
+ - 주어진 라벨의 횟수를 초기화한다.
+
+console.debug()
+ - debug 중요도로 메시지를 출력한다.
+
+console.dir()
+ - 주어진 Javascript 객체의 속성 목록을 상호작용 가능한 형태로 표시한다.
+ - 속성 값이 다른 객체라면 펼쳐서 확인할 수 있다.
+
+console.error()
+ - 오류 메시지를 출력한다.
+ - 추가 매개변수화 함께 문자열 치환을 사용할 수 있다.
+
+console.info()
+ - 정보 메시지를 출력한다.
+ - 추가 매개변수화 함께 문자열 치환을 사용할 수 있다.
+
+console.log()
+ - 일반 메시지를 출력한다.
+ - 추가 매개변수화 함께 문자열 치환을 사용할 수 있다.
+
+console.time()
+ - 주어진 이름의 타이머를 실행한다.
+ - 하나의 페이지에서는 최대 10000개의 타이머를 동시에 실행할 수 있다.
+
+console.timeEnd()
+ - 주어진 타이머를 멈추고 소요시간을 출력한다.
