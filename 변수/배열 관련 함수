@@ -1,0 +1,79 @@
+배열 함수
+ - toString은 배열을 문자열로 변환해준다.
+   ex)let eArr = new Array("a", "b", "c");
+      document.write(eArr.toString()); //a,b,c
+
+ - join을 사용하면 배열값 사이에 원하는 문자를 삽입할 수 있다.
+   toString()과 비슷하게 배열을 문자열로 바꾸지만 배열 요소에 원하는 연결문자를 붙일 수 있다는 차이점이 있다.
+   ex)let eArr = new Array("a", "b", "c");
+       document.write(eArr.join("/")); //a/b/c
+
+ - push는 배열의 끝에 원하는 값을 추가해주는 함수이다.
+   ex)let example = new Array("a", "b", "c");
+      example.push("d"); //a,b,c,d
+
+ - pop은 배열의 마지막 주소에 있는 값을 제거해주는 함수이다.
+   ex)let example = new Array("a", "b", "c");
+      example.pop(); //a,b
+
+ - unshift는 배열의 첫번째 위치에 값을 추가해주는 함수이다.
+   ex)let example = new Array("a", "b", "c");
+      example.unshift("d"); //d,a,b,c
+
+ - shift는 배열의 첫번째 주소에 있는 값을 제거하여 반환해주는 함수이다.
+    ex)let example = new Array("a", "b", "c");
+      example.shift(); //b,c
+
+ - splice는 배열값을 추가하거나 제거하여 반환해주는 함수이다.
+   splice(start, count, [새로 추가할 요소]);
+   ex)let example = ["a", "b", "c", "d"];
+       let example2 = example.splice(1, 2,"1","2");
+       document.write(example); //a,1,2,d
+       document.write(example2); //b,c
+
+ - length는 배열의 길이를 반환해주는 함수이다.
+   ex)let example = new Array("a", "b", "c");
+       document.write(example.length); //3
+
+ - concat은 두개의 배열을 합쳐주는 기능을 하는 함수이다.
+    ex)let example = new Array("a", "b", "c");
+       let example2 = new Array("d","e","f");
+       example = example.concat(example2);
+       document.write(example); //a,b,c,d,e,f
+
+ - reverse를 사용하면 배열을 역순으로 재배치 할 수 있다.
+   ex)let example = new Array("a", "b", "c");
+       example.reverse();
+       document.write(example); //c,b,a
+
+ - sort를 사용하면 배열을 정렬할 수 있다.
+   ex)let example = new Array(1,4,2,3,5);
+       example.sort();
+       document.write(example); //1,2,3,4,5
+
+ - slice는 배열의 일부분을 반환하는 함수이다.
+   slice(start, [end]) : 인덱스가 start인 지점부터 end 위치의 직전까지 잘라내어 새로운 배열을 반환한다.
+   ex)let example = [1, 2, 3, 4];
+       let example2 = example. slice(0, -1);
+       document.write(example2); //1,2,3
+       example2 = example. slice(-2);
+       document.write(example2); //3,4
+
+ - map은 배열 내의 모든 요소 각각에 대하여 주어진 함수를 호출한 결과를 모아 새로운 배열을 반환하는 함수이다.
+   arr.map(callback, [args])
+   callback : 새로운 배열 요소를 생성하는 함수
+   반환타입 : 배열
+   ex)let nums=[1,2,3,4,5];
+       let numArr1=[];
+
+       //map 사용X
+       for(let i=0;i<nums.length;i++)
+           numArr1.push(nums[i] * nums[i]);
+
+       //map 사용O
+       let numArr2=nums.map(function(val, i){
+           return val*val;
+       });
+
+       console.log(numArr1); //[1,4,8,16,25]
+       console.log(numArr2); //[1,4,8,16,25]
