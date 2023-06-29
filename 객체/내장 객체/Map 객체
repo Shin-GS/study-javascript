@@ -1,0 +1,51 @@
+Map 객체
+ - ES6에서 추가된 객체
+ - key와 value를 가지는 객체(Object와 유사한 구성을 가짐)
+ - new 연산자를 사용하여 만듬
+   let map = new Map()
+
+*Obeject와 Map 차이
+ - Map은 객체(Object)와 달리 key를 문자형으로 변환하지 않는다. 
+ - Map의 key에는 자료형 제약이 없다.
+ - Map은 값이 삽입된 순서를 기억하여 순서대로 순회를 실시하지만 객체(Obejct)는 순서를 못 한다.
+ - Map을 객체(Obejct)처럼 map[key] 방식으로 사용할 수 있지만 그렇게 되면 Map을 일반 객체(Object)로 취급하게 된다.
+
+대표 속성(property)와 메서드(method)
+ - 개수 : Map.size
+ - 값 저장 : Map.set()
+   호출될 때마다 맵 자신이 반환되어 체이닝(chaining) 할 수 있다.
+   map.set('1', 'str1').set(1, 'num1').set(true, 'bool1');
+ - 값 조회 : Map.get()
+ - 값 제거 : Map.delete()
+ - 값 존재여부 확인 : Map.has()
+ - 초기화 : Map.clear()
+
+Map 반복문
+ - let map = new Map([
+        ['cucumber', 500],
+        ['tomatoes', 350],
+        ['onion',    50]
+    ]);
+    for (let key of map.keys()) {
+        console.log(key); // cucumber, tomatoes, onion
+    }
+    for (let value of map.values()) {
+        console.log(value); // 500, 350, 50
+    }
+    for (let [key, value] of map) { // map.entries()와 동일합니다.
+        console.log(key + "," + value); // cucumber,500 ...
+    }
+ - map.forEach( (value, key, map) => {
+        console.log(`${key}: ${value}`); // cucumber: 500 ...
+    });
+
+Map 변환
+ - 객체 -> Map
+   const obj = { foo: 'bar', baz: 42 };
+   const map = new Map(Object.entries(obj)); //Map(2) {'foo' => 'bar', 'baz' => 42}
+ - Map -> 객체
+   let prices = Object.fromEntries([
+        ['banana', 1],
+        ['orange', 2],
+        ['meat', 4]
+    ]); //{banana: 1, orange: 2, meat: 4}

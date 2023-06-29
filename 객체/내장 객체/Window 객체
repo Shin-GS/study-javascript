@@ -1,0 +1,10 @@
+Window 객체
+ - 전역 객체(별도로 선언하지 않고 바로 사용가능한 객체)
+
+대표 속성(property)와 메서드(method)
+ - window.alert() : 메시지 알림창
+ - window.prompt() : 문자열 입력 가능한 알림창
+ - window.confirm() : 확인(true), 취소(false)가 가능한 알림창
+ - window.open() : 특정 페이지 혹은 사이트 이동
+ - window.setTimeout(function, millisecond) : 지정한 시간이 지난 뒤에 함수가 실행됨(1회 실행)
+ - window.setInterval(function, millisecond) : 지정한 시간마다 함수가 실행됨

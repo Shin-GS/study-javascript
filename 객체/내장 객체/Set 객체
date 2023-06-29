@@ -1,0 +1,41 @@
+Set 객체
+ - ES6에서 추가된 객체
+ - Set은 중복을 허용하지 않고, 키가 없는 값이 저장된다.
+ - new 연산자를 사용하여 만듬
+   let set = new Set(["oranges", "apples", "bananas"]);
+
+대표 속성(property)와 메서드(method)
+ - 개수 : Set.size
+ - 값 추가 : Set.add()
+ - 값 제거 : Set.delete()
+   호출 시점에 Set 내부에 값이 있어서 제거에 성공하면 true, 아니면 false를 반환함
+ - 값 존재여부 확인 : Set.has()
+ - 초기화 : Set.clear()
+
+Set 반복문
+ - let set = new Set(["oranges", "apples", "bananas"]);
+    for(let value of set) {
+        console.log(value); //oranges, apples, bananas
+    }
+    for(let key of set.keys()) {
+        console.log(key); //oranges, apples, bananas
+    }
+    for(let value of set.values()) {
+        console.log(value); //oranges, apples, bananas
+    }
+ - set.forEach((value, valueAgain, set) => {
+        console.log(value); //oranges, apples, bananas
+        console.log(valueAgain); //oranges, apples, bananas
+    });
+
+Set 변환
+ - Array -> Set
+   const arr = [0, 1, 2, 3];
+   let set = new Set(arr);
+ - Set -> Array
+   let set = new Set([0, 1, 2, 3]);
+   const arr1 = [...set]; //전개 연산자 사용
+   const arr2 = Array.from(set); //Array.from 사용
+
+*Array.from()
+ - 메서드는 유사 배열 객체나 반복 가능한 객체(iterable object)를 얕게 복사해 새로운 Array 객체를 만든다.

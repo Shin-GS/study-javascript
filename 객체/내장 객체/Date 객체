@@ -1,0 +1,34 @@
+Date 객체
+ - 날짜와 시간을 다루는데 사용
+ - new 연산자를 사용하여 만듬
+ - let now = new Date()
+   let custom = new Date(2020,11,25); //2020-12-25 00:00:00
+ - 밀리세컨드로 날짜를 생성 가능하다
+   let mili = new Date(24 * 60 * 60 * 1000); //1970-01-02 09:00:00
+
+대표 속성(property)와 메서드(method)
+1)조회
+ - getYear() : 년(1900년도 이후의 연도) - 웹 표준에서 제외
+ - getFullYear() : 년 - 권장사용
+ - getMonth() : 월(0=1월, 1=2월, 2=3월…..)
+ - getDate() : 일
+ - getDay() : 요일(0=일요일, 1=월요일, ... , 6=토요일)
+ - getHours() : 시 
+ - getMinutes() : 분
+ - getSeconds() : 초
+ - getMilliseconds() : 밀리초
+ - getTime() : 1970년 1월 1일 이후 시간을 1/1000초로 나타낸 값
+
+2)설정
+ - setYear() : 1970년 이상 설정
+ - setMonth() : 월을 설정
+ - setDate() : 일을 설정
+ - setDay() : 요일 설정
+ - setHours() : 시를 설정
+ - setMinutes() : 분을 설정
+ - setTime() : 시간 설정
+
+ *날짜 계산
+  - 밀리세컨드를 사용해서 가능
+  - let now = new Date()
+    let minus7Day = new Date(now - (7 * 24 * 60 * 60 * 1000));

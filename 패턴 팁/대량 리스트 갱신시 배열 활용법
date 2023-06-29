@@ -1,0 +1,25 @@
+리스트 갱신
+ - 서버에서 받아온 리스트를 갱신할때 문자열을 덧셈을 통해 수행하는 것보다 배열을 쓰는 것이 성능상 더 유리하다.
+
+ 1)문자열 사용
+  - 계속되는 메모리 재할당으로 인해 데이터 건수가 많으면 성능에 차이가 많이 난다.
+  - let trTags = "";
+    for(const drink of drinkList) {
+        trTags += "<tr>";
+        trTags += "<td>" + drink.name + "</td>";
+        trTags += "<td>" + drink.price + "</td>";
+        trTags += "</tr>";
+    }
+    console.log(trTags);
+
+
+ 2)배열 사용
+  - 배열에 새로운 항목을 추가하는 비용이 메모리 재할당보다 가볍기 때문에 데이터 건수가 많아도 성능에 큰 저하가 없다.
+  - let trTags = [];
+    for(const drink of drinkList) {
+        trTags.push("<tr>");
+        trTags.push("<td>" + drink.name + "</td>")
+        trTags.push("<td>" + drink.price + "</td>")
+        trTags.push("</tr>")
+    }
+    console.log(trTags.join(""));

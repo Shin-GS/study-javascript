@@ -1,0 +1,17 @@
+Number 객체
+ - 숫자를 표현하고 다룰 때 사용하는 원시 래퍼 객체
+
+대표 속성(property)와 메서드(method)
+ - 최대, 최소 숫자 : Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER
+ - 문자열 변환 : Nubmer.toString()
+ - 지수 표기법으로 문자열 변환 : Number.toExponential()
+ - 소수점 몇자리까지 보여줄지 결정 : Number.toFixed()
+ - 정수와 소수점 합쳐서 몇자리까지 보여줄지 결정 : Number.toPrecision()
+
+문자열을 Number로 변환
+ - parseInt() : 문자열을 정수로 변환
+   parseInt("12.33") => 12
+   parseInt("10 years") => 10
+ - paraseFloat() : 문자열을 부동소수점 실수로 변환
+   parseFloat("12.33") => 12.33
+   parseFloat("12.ff42") => 12

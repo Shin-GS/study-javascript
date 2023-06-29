@@ -1,0 +1,33 @@
+String 객체
+ - 텍스트 길이에 상관없이 문자열 형태로 저장되는 자료형
+ - 자바스크립트에서는 글자 하나만 저장할 수 있는 Char 자료형이 없음
+ - 자바스크립트에서 문자열은 페이지 인코딩 방식과 상관없이 항상 UTF-16 형식을 따름
+
+대표 속성(property)와 메서드(method)
+ - 문자열 길이 : String.length
+ - 문자열 접근 : String.CharAt(), String.charCodeAt()
+ - 문자열 검색 : String.indexOf(), String.lastIndexOf(), String.includes()
+ - 문자열 변환 : String.toUpperCase(), String.toLowerCase()
+ - 문자열 치환 : String.replace(), String.replaceAll()
+ - 문자열 추출 : String.slice(), String.substring(), String.substr()
+ - 문자열 분할 : String.split()
+ - 문자열 결합 : String.concat()
+ - 문자열 확인 : String.startsWith(), String.endsWith()
+ - 문자열 채우기 : String.padStart(), String.padEnd()
+ - 문자열 공백 제거 : String.trim()
+
+*문자열 추출
+ - substring(index_start, index_end)
+   시작 인덱스부터 종료 인덱스 직전까지 조각내어 반환
+   단, slice() 와는 달리 음수값을 줄 경우 index를 0으로 간주함(음수값을 허용하지 않음)
+ - slice(index_start, index_end)
+   시작 인덱스부터 종료 인덱스 직전까지 조각내어 반환
+   음수값을 지정하면 뒤에서부터 시작됨
+ - substr(index, count)
+   시작 인덱스에서 count 개수만큼 문자열 추출
+
+*문자열 채우기
+ - padStart(count, string), padEnd(count, string)
+ - 첫번째 파라미터로 전달 받은 길이만큼 문자열 앞(뒤)에 두번째 파라미터로 전달 받은 문자로 채움
+ - "ST".padStart(4, "A") => AAST
+ - "ST".padEnd(4, "A") => STAA
