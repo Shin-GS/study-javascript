@@ -1,0 +1,6 @@
+디폴트 파라미터
+ - 기본 함수 매개변수(default function parameter)
+ - 함수를 호출할때 파라미터를 넘겨주지 않으면 사용할 기본 값
+ - function hello(name ="world") {
+        console.log(name);
+    }

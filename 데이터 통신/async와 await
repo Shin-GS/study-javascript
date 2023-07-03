@@ -1,0 +1,48 @@
+async와 await
+ - 기존에는 동기식으로 로직을 처리할때 setTimeout, callback, promise등을 사용했다.
+   async와 await은 기존의 방식의 문제점을 보완하면서도 훨씬 간단한 사용법을 가지고 있다.
+
+async
+ - function 앞에 async를 붙이면 해당 함수는 항상 프라미스를 반환한다.
+   프라미스가 아닌 값을 반환하더라도 이행 상태의 프라미스(resolved promise)로 값을 감싸 이행된 프라미스가 반환되도록 한다.
+ - async function f() {
+        return 1;
+   }
+   f().then(alert); // 1
+
+await
+ - await는 async 함수 안에서만 동작한다.
+ - await는 말 그대로 프라미스가 처리될 때까지 함수 실행을 기다리게 만든다. 
+   프라미스가 처리되면 그 결과와 함께 실행이 재개된다. 
+   프라미스가 처리되길 기다리는 동안엔 엔진이 다른 일(다른 스크립트를 실행, 이벤트 처리 등)을 할 수 있기 때문에 CPU 리소스가 낭비되지 않는다.
+ - await는 promise.then보다 좀 더 세련되게 프라미스의 result 값을 얻을 수 있도록 해주는 문법이다.
+   promise.then보다 가독성 좋고 쓰기도 쉽다.
+ - async function f() {
+        let promise = new Promise((resolve, reject) => {
+                setTimeout(() => resolve("완료!"), 1000)
+        });
+
+        let result = await promise; // 프라미스가 이행될 때까지 기다림
+        console.log(result);
+   }
+   f();
+ - 에러는 try-catch로 잡을 수 있다.
+    async function f() {
+      try {
+        let response = await fetch('http://유효하지-않은-주소');
+        let user = await response.json();
+      } catch(err) {
+        // fetch와 response.json에서 발행한 에러 모두를 여기서 잡는다.
+        alert(err);
+      }
+    }
+
+*Fetch API 적용
+ - async functio ngetData() {
+        const response = await fetch("http://localhost:3000/posts/1");
+        const posts = response.json();
+        const response2 = await fetch("http://localhost:3000/posts/1/comments");
+        const comments = response2.json();
+        console.log(posts);
+        console.log(comments);
+    }

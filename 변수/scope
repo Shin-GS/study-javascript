@@ -1,0 +1,18 @@
+scope
+ - 선언된 변수에 대한 접근성을 의미
+
+ - 함수 안에서 선언된 변수는 함수 안에서만 참조되며 함수 밖에서는 참조할 수 없다.
+    function myFunction() {
+        let carName = "기아차";
+        console.log(carName); //참조 가능
+    }
+    console.log(carName); //참조 불가능
+
+ - 함수 밖에서 선언된 변수는 함수 밖은 물론이고 함수 안에서도 참조할 수 있다.
+    let carName = "기아차";
+    function myFunction() {
+        console.log(carName); //참조 가능
+    }
+    console.log(carName); //참조 가능
+
+ - 함수 밖에 함수 안은 scope가 다르기 때문에 동일한 변수명으로 사용할 수 있다.

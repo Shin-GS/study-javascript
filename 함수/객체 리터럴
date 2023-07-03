@@ -1,0 +1,8 @@
+객체 리터럴(Object literal)
+ - 객체 리터럴 방식은 객체 생성 방식 중 가장 일반적이고 간단한 방법으로 컨텐츠를 그대로 대입하는 방법을 말한다.
+ - Object를 선언하는 시점에 키(key)를 변수명을 사용해서 정의할 수 있다.
+ - let type = "name";
+    let score = {
+        point: 100,
+        [type]: "john" //score[type] = "john"과 동일한 효과
+    };

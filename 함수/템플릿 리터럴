@@ -1,0 +1,10 @@
+템플릿 리터럴(template literals)
+ - ES6부터 추가된 문법
+ 
+ - 템플릿 리터럴은 내장된 표현식을 허용하는 문자열 리터럴이다.
+   템플릿 리터럴은 표현식/문자열 삽입, 여러 줄 문자열, 문자열 형식화, 문자열 태깅 등 다양한 기능을 제공한다.
+   `string text ${expression} string text`
+
+ - function hello(firstName, lastName) {
+        console.log(`Hello ${firstName} ${lastName}!`);
+     }

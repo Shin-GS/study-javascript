@@ -1,0 +1,10 @@
+나머지 파라미터(rest parameter)
+ - ES6에서 추가된 문법
+ - 나머지 매개변수 구문을 사용하면 함수가 정해지지 않은 수의 매개변수를 배열로 받을 수 있다.
+ - function add(...nums) {
+        let total = 0;
+        for(const n of nums)
+            total += n;
+        return total;
+    }
+    add(1,2,3,4,5);

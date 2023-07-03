@@ -1,0 +1,36 @@
+this
+ - this는 함수 내에서 함수 호출 맥락(context)를 의미한다. 
+ - 맥락이라는 것은 상황에 따라서 달라진다는 의미인데 즉 함수를 어떻게 호출하느냐에 따라서 this가 가리키는 대상이 달라진다는 뜻이다. 
+ - 함수와 객체의 관계가 느슨한 자바스크립트에서 this는 이 둘을 연결시켜주는 실질적인 연결점의 역할을 한다.
+
+1)함수호출
+ - this는 전역객체인 window와 같다.
+ - function func(){
+        if(window === this){
+            console.log("window === this");
+        }
+    }
+    func(); 
+
+2)객체
+ - 객체의 소속인 메소드의 this는 그 객체를 가르킨다. 
+ - let o = {
+        func : function(){
+            console.log(this); //o
+        }
+    }
+    o.func();   
+
+3)HTML DOM 요소가 바인딩된 경우
+ - this는 해당 DOM 요소를 의미한다.
+ - <button onclick="myFunction(this);">클릭</button>
+   function myFunction(obj) {
+        console.log(obj); //<button onclick="myFunction(this);">클릭</button>
+   }
+
+4)생성자와 함수 호출의 차이
+ - function Func(){
+        console.log(this)
+    }
+    let o1 = Func(); //window
+    let o2 = new Func(); //o2

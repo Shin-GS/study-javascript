@@ -55,7 +55,7 @@ hw.addEventListener('click', function(){
 4)defer 사용
  - script src를 head 태그 안에 포함시키면 랜더링 시간이 소모될 수 있다.
  - 이떄 defer를 사용하면 브라우저는 defer 속성이 있는 스크립트를 백그라운드에서 다운로드 한다.
- - 따라서 지연 스크립트를 다운로드 하는 도중에도 HTML 파싱이 멈추자 않고 defer 스크립트 실행은 페이지 구성이 끝날 때까지 지연된다.
+ - 따라서 지연 스크립트를 다운로드 하는 도중에도 HTML 파싱이 멈추지 않고 defer 스크립트 실행은 페이지 구성이 끝날 때까지 지연된다.
  - 지연 스크립트는 일반 스크립트와 마찬가지로 HTML에 추가된 순으로 실행된다.
  <head>
     <script src="script2.js" defer></script> /* defer 속성은 자바스크립트 파일을 head 태그에 삽입해도 실제 실행은 body 제일 아래서 된다. */

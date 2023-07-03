@@ -1,0 +1,10 @@
+화살표 함수(arrow function)
+ - let func = (arg1, arg2, ...argN) => { expression }
+
+ - 인자 arg1..argN를 받는 함수 func이 만들어진다.
+   함수 func는 화살표(=>) 우측의 표현식(expression)을 평가하고 평가 결과를 반환한다.
+   const hello = (name) => console.log(name);
+
+ - 코드 블럭 안에 코드가 한줄이면 중괄호를 생략할 수 있다.
+   코드 블럭 안에 코드가 한줄이고 그 코드가 return이면 return 키워드를 생략할 수 있다.
+   const add = (a, b) => a + b;

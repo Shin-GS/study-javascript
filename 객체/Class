@@ -1,0 +1,47 @@
+class
+ - EC6에서 추가된 문법
+
+ - Class는 객체를 생성하기 위한 템플릿이다.
+   클래스는 데이터와 이를 조작하는 코드를 하나로 추상화한다. 
+ 
+ - 과거에는 자바스크립트에서 클래스는 프로토타입을 이용해서 만들어졌지만 현재는 Class를 통해 쉽게 생성할 수 있다.
+   function Person({name, age}) {
+        this.name = name;
+        this.age = age;
+    }
+    Person.prototype.introduce = function() {
+        return `안녕하세요, 제 이름은 ${this.name}입니다.`;
+    };
+    const person = new Person({name: '윤아준', age: 19});
+ 
+ - 함수 선언과 클래스 선언의 중요한 차이점은 함수의 경우 정의하기 하기 전에 호출할 수 있지만 클래스는 반드시 정의한 뒤에 사용할 수 있다.
+
+ - Class의 초기값은 constructor를 통해 지정해준다.
+
+ - class Car {
+        constructor(name, price) {
+            this.name = name;
+            this.price = price;
+        }
+
+        getName() {
+            return this.name;
+        }
+
+        getPrice() {
+            return this.price;
+        }
+    }
+    let car = new Car("상품", 123);
+
+ - extends를 통해 클래스 상속도 가능하다.
+   class ElectricCar extends Car {
+        constructor(name, price, sample) {
+            super(name, price);
+            this.sample = sample;
+        }
+
+        getSample() {
+            return this.sample;
+        }
+   }

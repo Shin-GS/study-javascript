@@ -1,0 +1,53 @@
+Fetch API
+ - ES6에서 추가된 문법
+
+ - Fetch API는 HTTP 파이프라인을 구성하는 요청과 응답 등의 요소를 JavaScript에서 접근하고 조작할 수 있는 인터페이스를 제공한다. 
+   Fetch API가 제공하는 전역 fetch() 메서드로 네트워크의 리소스를 쉽게 비동기적으로 취득할 수도 있다.
+
+ - 콜백 기반 API인 XMLHttpRequest와 달리 Fetch API는 서비스 워커에서도 쉽게 사용할 수 있는 프로미스 기반의 개선된 대체제이다. 
+   또한 Fetch API는 CORS를 포함한 고급 개념을 HTTP 확장으로 정의한다.
+   fetch(url)
+    .then(response => {
+        // handle the response
+    })
+    .catch(error => {
+        // handle the error
+    });
+
+ - 자체적으로 promise 기능을 가지고 있다.
+ 
+ - 서버로부터 받아온 데이터를 response.json을 사용해서 바로 사용할 수 있다.
+
+ - fetch("http://localhost:3000/posts")
+    .then((response) => response.json())
+    .then((json) => console.log(json))
+    .catch((error) => console.log(error));
+
+ - fetch("http://localhost:3000/posts", {
+        method: "POST",
+        headers: {
+            "content-type": "application/json;charset=UTF-8"
+        },
+        body: JSON.stringify({title: "title", author: "author"})
+    })
+    .then((response) => response.json())
+    .then((json) => console.log(json))
+    .catch((error) => console.log(error));
+
+ - fetch("http://localhost:3000/posts/1", {
+        method: "PUT",
+        headers: {
+            "content-type": "application/json;charset=UTF-8"
+        },
+        body: JSON.stringify({title: "title", author: "author"})
+    })
+    .then((response) => response.json())
+    .then((json) => console.log(json))
+    .catch((error) => console.log(error));
+
+ - fetch("http://localhost:3000/posts/1", {
+        method: "DELETE"
+    })
+    .then((response) => response.json())
+    .then((json) => console.log(json))
+    .catch((error) => console.log(error));
