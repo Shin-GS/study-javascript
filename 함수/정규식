@@ -1,0 +1,134 @@
+정규식
+ - 정규식은 문자열에 포함된 특정 문자 조합을 찾기 위해 사용되는 패턴이다. 
+ - RegExp의 exec, test 메소드와 String의 match, replace, search, split 메소드와 함께 사용된다.
+ - 정규식 테스트 사이트 : https://regexr.com
+
+정규식 메타 문자
+ - \ : 정규식 패턴의 시작과 끝을 의미
+ - [] : [abc]는 문자 "a", "b", "c" 중 하나의 문자와 매치되는 것
+ - [^] : [^abc]는 문자 "a", "b", "c"를 제외한 임의의 한 문자와 매치되는 것
+ - {} : {} 앞에 있는 항목이 반복될 때 반복 횟수를 지정하는 것
+ - () : 여러 항목을 묶어서 단일 단위로 사용할 수 있도록 하는 것
+ - | : a|b는 a나 b중에 하나 매치된다. 
+ - \num : 정규식 부분 표현식에서 num번째의 부분 표현식을 참조한다. 
+ - \b : 단어와 단어 사이의 경계에 매치되어 해당 단어만을 정확하게 매치시킨다. 
+ - \B : 단어의 경계가 아닌 단어의 위치에 매치된다. 
+ - \d : 0~9사이의 숫자 중에 하나와 매치된다. 
+ - \D : 숫자(0~9)를 제외한 임의의 문자와 매치된다. 
+ - \s : 임의의 공백문자(\t,\n,\r,\t,\v)에 매치된다. 
+ - \S : 공백문자가 아닌 임의의 한 문자에 매치된다. 
+ - \w : 알파벳과 숫자에 매치되는 임의의 한 문자
+ - \W : 알파벳과 숫자가 아닌 임의의 한 문자
+ - \/ : /를 의미함
+ - ^ : 문자열 행의 시작 부분과 매치된다. 
+ - $ : 문자열 행의 끝 부분과 매치한다.
+ - . : 개행문자(\n)를 제외한 "모든 문자" 하나에 매치된다. 
+       마침표(.)를 하고 싶으면 "." 대신 "\."을 주어야 한다.
+ - ? : 앞에 있는 항목과 1회 이하로 매치된다. (0 or 1)
+ - + : 앞에 있는 항목과 1회 이상 매치된다. 
+ - * : 앞에 있는 항목과 0회 이상 매치된다.
+
+정규식 옵션
+ - 정규표현식 패턴을 만들 때 옵션을 설정할 수 있다. 옵션에 따라서 검출되는 데이터가 달라진다.
+ - i를 붙이면 대소문자를 구분하지 않느다.
+   console.log("Abcde".match(/a/)); //null
+   console.log("Abcde".match(/a/i)); //["A"];
+ - g를 붙이면 검색된 모든 결과를 리턴한다.
+   console.log("abcdea".match(/a/)); //["a"];
+   console.log("abcdea".match(/a/g)); //["a","a"];
+ - m를 붙이면 문자열에서 `^` , `$` 에서 개행문자를 허용한다.
+ - s를 붙이면 문자열 에서 `.` 에서 개행문자를 허용한다.
+ - y를 붙이면 lastIndex 부터 일치하는 문자열을 반환한다.
+ - u를 붙이면 Unicode 코드 포인트의 시퀀스로 처리한다.
+
+정규식 적용 예제
+ - 4~8자, 영문자, 숫자, !, _만 사용가능
+   let pattern = new RegExp(/^[A-Za-z0-9_!]{4,8}$/);
+ - 4~8자, 영문자, 숫자, !, _만 사용가능하고 영문자로 시작
+   let pattern = new RegExp(/^[A-Za-z]{1}[A-Za-z0-9_!]{3,7}$/);
+ - 4~8자, 영문자, 숫자, !, _, .만 사용가능하고 영문자로 시작
+   let pattern = new RegExp(/^[A-Za-z]{1}[\w!_\.]{3,7}$/);
+ - 한글과 공백만 허용하고 한글로 시작
+   let pattern = /^[가-힣]{1}[가-힣\s]+$/;
+ - 핸드폰 번호
+   let pattern = /^\b(010|011|016|017|019)[-]\d{3,4}[-]\d{4}\b$/;
+ - 이메일
+   let pattern = /^([a-z]+\d*)+(\.?[a-z]+)+@[a-z]+(\.[a-z]{2,3})+$/;
+
+정규표현식은 두가지 단계로 이루어진다. 
+하나는 컴파일(compile) 다른 하나는 실행(execution)이다.
+
+1)컴파일(compile)
+ - 정규표현식 리터럴
+    let pattern = /a/
+ - 정규표현식 객체 생성자
+    let pattern = new RegExp('a');
+
+2)실행(execution)
+ - RegExp.exec()
+    console.log(pattern.exec('abcdef')); //["a"]
+    console.log(pattern.exec('bcdefg')); //null
+ - RegExp.test()
+   test 메소드는 인자 안에 패턴에 해당되는 문자열이 있으면 true, 없으면 false를 리턴한다.
+    console.log(pattern.test('abcdef')); //true
+    console.log(pattern.test('bcdefg')); //false
+
+3)자바스크립트
+ - 정규식만으로 부족한 부분은 자바스크립트를 사용하여 보완해준다.
+ - 생년월일 체크
+    function isDate(obj) {
+        let val=obj.value;
+        let pattern=/^\b\d{4}[-\/]\d{1,2}[-\/]\d{1,2}\b$/;
+        let bool=pattern.test(val);
+
+        if(bool) {
+            let split=val.split(/[-\/]/g);
+            console.log(split);
+
+            let now=new Date();
+            let year=Number(split[0]);
+            let month=Number(split[1]);
+            let day=Number(split[2]);
+            let lastDay=new Date(split[0], Number(split[1]), 0);
+            lastDay=lastDay.getDate();
+
+            if(year<1800 || year>now.getFullYear())
+                bool=false;
+
+            else if(month<0 || month>12)
+                bool=false;
+
+            else if(day<0 || day>lastDay)
+                bool=false;
+        }
+
+        return bool;
+    }
+
+문자열 정규 표현식
+ - 문자열 객체의 몇몇 메소드는 정규표현식을 사용할 수 있다. 
+ - String.match()
+   RegExp.exec()와 비슷하다.
+   console.log('abcdef'.match(pattern)); //["a"]
+   console.log('bcdefg'.match(pattern)); //null
+ - String.replace()
+   문자열에서 패턴을 검색해서 이를 변경한 후에 변경된 값을 리턴한다.
+   console.log('abcdef'.replace(pattern, 'A'));  //Abcdef
+
+정규 표현식 응용
+ - 캡처
+   괄호안의 패턴은 마치 변수처럼 재사용할 수 있다. 
+   이 때 기호 $를 사용하는데 아래 코드는 coding과 everybody의 순서를 역전시킨다.
+   let pattern = /(\w+)\s(\w+)/;
+   let str = "coding everybody";
+   let result = str.replace(pattern, "$2, $1");
+   console.log(result); //everybody, coding
+
+ - 치환
+   아래 코드는 본문 중의 URL을 링크 html 태그로 교체한다. 
+   let urlPattern = /\b(?:https?):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*/gim;
+   let content = '생활코딩 : http://opentutorials.org/course/1 입니다. 네이버 : http://naver.com 입니다. ';
+   let result = content.replace(urlPattern, function(url){
+        return '<a href="'+url+'">'+url+'</a>';
+   });
+   console.log(result);
