@@ -1,0 +1,21 @@
+문서 로드
+ - 웹페이지의 모든 요소에 대한 처리가 끝나고 DOM 제어가 일어나야 이슈가 발생하지 않는다.
+ - 이것을 알려주는 이벤트가 load, DOMContentLoaded이다.
+
+1)load 이벤트
+ - load 이벤트는 문서내의 모든 리소스(이미지, 스크립트)의 다운로드가 끝난 후에 실행된다. 
+ - 단, 이떄 작업을 하면 에플리케이션의 구동이 너무 지연되는 부작용을 초래할 수 있다.
+ - window.addEventListener("load", function() {});
+
+2)onunload 이벤트
+ - 언로드 될 때 발생하는 이벤트
+ - 페이지가 언로드되거나 브라우저 창을 닫으면 발생.
+ - 사용자가 페이지를 탐색 할 때 발생 
+   (링크를 클릭하거나 양식을 제출하거나 브라우저 창을 닫음 등)
+ - 사용자가 페이지 및 onload 이벤트를 다시 로드할 때도 발생.
+ - 브라우저에 따라 작동 안 할 수 있음.
+ - window.addEventListener("onload", function() {});
+
+2)DOMContentLoaded
+ - DOMContentLoaded는 문서에서 스크립트 작업을 할 수 있을 때 실행되기 때문에 리소스의 다운로드를 기다릴 필요가 없다.
+ - window.addEventListener('DOMContentLoaded', function() {})

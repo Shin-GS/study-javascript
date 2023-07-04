@@ -1,0 +1,35 @@
+웹브라우저의 구성요소들은 각각 기본적인 동작 방법을 가지고 있다.
+ - 이러한 기본적인 동작들을 기본 이벤트라고 하는데 사용자가 만든 이벤트를 이용해서 이러한 기본 동작을 취소할 수 있다.
+ - 텍스트 필드에 포커스를 준 상태에서 키보드를 입력하면 텍스트가 입력된다.
+   폼에서 submit 버튼을 누르면 데이터가 전송된다.
+   a 태그를 클릭하면 href 속성의 URL로 이동한다.
+
+1)inline 방식
+ - 이벤트의 리턴값이 false이면 기본 동작이 취소된다.
+ - <a href="http://opentutorials.org" onclick="if(document.getElementById('prevent').checked) return false;">opentutorials</a>
+ - <form action="http://opentutorials.org" onsubmit="if(document.getElementById('prevent').checked) return false;">
+        <input type="submit" />
+    </form>
+
+2)property 방식
+ - 리턴 값이 false이면 기본동작이 취소된다.
+ - document.querySelector('a').onclick = function(event){
+        if(document.getElementById('prevent').checked)
+            return false;
+    };
+    document.querySelector('form').onclick = function(event){
+        if(document.getElementById('prevent').checked)
+            return false;
+    };
+
+3)addEventListener 방식
+ - 이 방식에서는 이벤트 객체의 preventDefault 메소드를 실행하면 기본 동작이 취소된다.
+ - ie9 이하 버전에서는 event.returnValue를 false로 해야 한다.
+ - document.querySelector('a').addEventListener('click', function(event){
+        if(document.getElementById('prevent').checked)
+            event.preventDefault();
+    });
+    document.querySelector('form').addEventListener('submit', function(event){
+        if(document.getElementById('prevent').checked)
+            event.preventDefault();
+    });

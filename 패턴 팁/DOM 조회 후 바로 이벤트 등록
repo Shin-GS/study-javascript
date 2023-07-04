@@ -1,0 +1,5 @@
+DOM 조회 후 바로 이벤트 등록
+ - document.getElementById("element")
+    .addEventListener("click", function() {
+        console.log("click");
+    });

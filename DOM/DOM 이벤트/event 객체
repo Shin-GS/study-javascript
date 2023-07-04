@@ -1,0 +1,32 @@
+이벤트 객체
+ - 이벤트 객체는 이벤트가 실행될 때 이벤트 핸들러의 인자로 전달된다.
+ - ie8 이하 버전에서는 이벤트 객체를 핸들러의 인자가 아니라 전역객체의 event 프로퍼티로 제공한다. 
+   또한 target 프로퍼티도 지원하지 않는다.
+ - 하위 호환성을 고려한 코드
+    var t = document.getElementById('target');
+    t.onclick = function(event){
+        var event = event || window.event;
+        var target = event.target || event.srcElement;
+        alert('Hello world, '+target.value)
+    }
+
+event 객체의 프로퍼티
+ - event.type : 실행된 event 타입
+ - event.target : event를 발생시킨 Target
+ - event.currentTarget :  event 버블링으로 현재 이벤트 발생되는 Target
+ - event.relatedTarget : 해당 이벤트와 관련된 다른 DOM 요소 선택
+ - event.result : 해당 이벤트가 실행한 이벤트 핸들러 함수에 의해 리턴되는 가장 마지막 값
+ - event.data : event 대상이 가지고 있는 값
+ - event.namespace : 이벤트가 tirgger 됐을때, 발생한 이벤트의 namespace
+ - event.pageX : 이벤트가 발생한 요소의 문서의 왼쪽부터의 위치
+ - event.pageY : 이벤트가 발생한 요소의문서의 상단으로부터의 위치
+ - event.timeStamp : event가 실행된 시간
+ - event.which : 이벤트가 발생된 요소의 key 값(키보드 값<숫자>, 마우스 <왼쪽 1, 중간 2, 오른쪽 3>)
+
+event 객체의 메소드
+ - event.preventDefault() : 해당 요소에 걸려있는 다른 이벤트를 무력화한다.
+ - event.isDefaultPrevented() : event.preventDefault() 상태인지 체크한후 true / false로 리턴한다.
+ - event.stopPropagation() : 다른 이벤트 핸들러가 호출되는 것을 막는다(이벤트 버블링)
+ - event.stopImmediatePropagation() : 다른 이벤트 핸들러가 호출되는 것을 막는다(이벤트 버블링)
+ - event.isPropagationStopped() : event.stopPropagation()이 호출 됐는지 여부를 true /false로 리턴한다.
+ - event.isImmediatePropagationStopped() : event.stopImmediatePropagation()이 호출됐는지 여부를 true /false로 리턴한다.

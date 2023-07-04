@@ -1,0 +1,37 @@
+1)innerHTML
+ - innerHTML은 요소 내에 포함 된 HTML을 가져오고 문자열처럼 = 연산자나 += 연산자로 해당 내용을 추가하거나 변경할 수 있도록 해준다.
+   innerHTML이 실행되면 해당 요소 내의 DOM Tree가 초기화되고 대입해준 값으로 대체된다.
+ - 특정 DOM 요소 안에 HTML을 전부 새로운 HTML로 변경할때 사용
+ - document.documentElement.innerHTML
+ - document.body.innerHTML = "<button>click</button>";
+
+2)innterText
+ - 특정 DOM 요소 안에 TEXT를 전부 새로운 TEXT로 변경할때 사용
+ - document.documentElement.innerText
+ - <h1 id="title">타이틀</h1>
+   document.getElementById("id").innerText = "타이틀 변경";
+
+3)insertAdjacentHTML()
+ - 요소 아래의 돔 트리를 싹 갈아엎는 innerHTML과 달리 돔 프라그먼트를 삽입하기만 하는 insertAdjacentHTML 메소드를 사용하면
+   이미 추가된 요소들을 다시 파싱하고 돔 트리에 넣지 않아도 된다는 큰 이점을 보여준다.
+ - 지정한 곳에 노드가 추가 될 뿐 기존 노드 건드리지 않음(innerHTML과 차이점)
+ - element.insertAdjacentHTML(position, html);
+ - position 값
+   beforebegin : 접근한 DOM 요소 바로 직전 노드로 삽입
+   afterbegin : 접근한 DOM 요소의 자식 노드의 제일 첫번째 노드로 삽입
+   beforeend : 접근한 DOM 요소의 자식 노드의 제일 마지막 노드로 삽입
+   afterend : 접근한 DOM 요소 바로 다음 노드로 삽입
+ - document.getElementById("id").insertAdjacentHTML("afterbegin", "<button>click</button>");
+
+4)insertAdjacentText()
+ - element.insertAdjacentText(position, text);
+ - position 값
+   beforebegin : 접근한 DOM 요소 바로 직전 문자열 삽입
+   afterbegin : 접근한 DOM 요소의 자식 노드의 제일 첫번째 문자열 삽입
+   beforeend : 접근한 DOM 요소의 자식 노드의 제일 마지막 문자열 삽입
+   afterend : 접근한 DOM 요소 바로 다음 문자열 삽입
+ - document.getElementById("id").insertAdjacentHTML("afterbegin", "텍스트 문자열");
+
+5)remove()
+ - DOM 요소 삭제
+ - document.getElementById("remove").remove();

@@ -9,3 +9,5 @@ Window 객체
  - window.setTimeout(function, millisecond) : 지정한 시간이 지난 뒤에 함수가 실행됨(1회 실행)
  - window.setInterval(function, millisecond) : 지정한 시간마다 함수가 실행됨
  - window.clearInterval() : setTimeout 함수를 취소함
+ - window.scrollX : 수평으로 얼마나 스크롤됐는지 값(readOnly)
+ - window.scrollY : 수직으로 얼마나 스크롤됐는지 값(readOnly)

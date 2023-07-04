@@ -1,0 +1,40 @@
+이벤트 종류
+ - load : 브라우저가 문서를 읽을 때
+ - unload : 브라우저에서 문서가 없어질 때(페이지가 언로드되거나 브라우저 창을 닫으면 발생)
+ - error : 문서나 이미지를 읽다가 에러 발생시
+ - blur : 입력양식 필드에서 포커스가 다른 곳으로 이동했을 때
+ - input : 입력할 때
+ - change : 입력양식 필드에 있는 값을 바꾸었을 때
+ - focus : 입력양식 필드로 포커스가 들어왔을 때
+ - select : 입력양식의 한 필드를 선택했을 때
+ - abort : 이미지를 읽다가 중단시켰을 때
+ - submit : 입력양식을 서버로 보낼 때
+ - reset : 입력양식에서 리셋했을 때
+ - click : 입력양식이나 링크를 마우스로 클릭했을 때
+ - dbclick : 마우스 더블 클릭시
+ - dragdrop : 마우스를 클릭한 상태에서 움직일 때
+ - keydown : 키를 입력했을 때
+ - keypress : 키를 눌렀을 때
+ - keyup : 키를 눌렀다 놓았을 때
+ - mouseover : 링크위로 마우스가 지나갈 때
+ - mouseout : 마우스가 링크나 특정영역안에 있다가 나갔을 때
+ - mousedown : 마우스 버튼을 눌렀을 때
+ - mousemove : 마우스를 움직였을 때
+ - mouseup : 마우스를 눌렀다 놓았을 때
+ - move : 윈도우나 프레임이 움직였을 때
+ - resize : 윈도우나 프레임의 크기를 바꾸었을 때
+ - scroll : 스크롤바를 조작할 때
+
+객체 이벤트 종류
+ - SELECT : onBlur, onChange, onFocus
+ - TEXT : onBlur, onChange, onFocus, onSelect
+ - TEXTAREA : onBlur, onChange, onFocus, onSelect
+ - BUTTON : onClick
+ - CHECKBOX : onClick
+ - RADID BUTTON : onClick
+ - HYPER LINK : onClick, onMouseover
+ - DOCUMENT : onLoad, onUnload
+ - WINDOW : onLoad, onUnload
+ - FORM : onSubmit
+ - RESET BUTTON : onClick
+ - SUBMIT BUTTON : onClick

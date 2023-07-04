@@ -1,0 +1,27 @@
+DOM 속성
+ - DOM 요소에 접근(조회)하고 나면 요소의 속성 값을 읽어오거나 속성 값을 변경할 수 있다.
+ - Element.getAttribute(name);
+ - Element.setAttribute(name, value);
+ - Element.hasAttribute(name);
+ - Element.removeAttribute(name);
+
+모든 엘리먼트의 HTML속성은 JavaScript 객체의 속성과 프로퍼티로 제어가 가능하다.
+ - setAttribute('class', 'important')와 className = 'important'는 같은 결과를 만든다. 
+   전자는 attribute 방식이고 후자는 property 방식이다. 
+ - <p id="target">
+        Hello world
+    </p>
+    <script>
+        var target = document.getElementById('target');
+        target.setAttribute('class', 'important'); //attribute 방식
+        target.className = 'important'; //property 방식
+    </script>
+ - property 방식은 좀 더 간편하고 속도도 빠르지만 실제 html 속성의 이름과 다른 이름을 갖는 경우가 있으므로 주의해야 한다. 
+    class - className
+    readonly - readOnly
+    rowspan - rowSpan
+    colspan - colSpan
+    usemap - userMap
+    frameborder - frameBorder
+    for - htmlFor
+    maxlength - maxLength

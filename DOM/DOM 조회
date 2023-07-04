@@ -1,0 +1,33 @@
+DOM 조회
+ - DOM은 Document Object Model로 웹페이지를 자바스크립트로 제어하기 위한 객체 모델을 의미한다. 
+ - window 객체의 document 프로퍼티를 통해서 사용할 수 있다. 
+   Window 객체가 창을 의미한다면 Document 객체는 윈도우에 로드된 문서를 의미한다고 할 수 있다
+ - document.getElementsBy* 메소드를 통해서 엘리먼트를 조회한다. 
+   document 객체는 문서 전체를 의미하는 엘리먼트이기 때문에 document의 조회 메소드는 문서 전체를 대상으로 엘리먼트를 조회한다. 
+   Element 객체 역시도 getElementsBy* 엘리먼트를 가지고 있는데 Element 객체의 조회 메소드는 해당 엘리먼트의 하위 엘리먼트를 대상으로 조회를 수행한다. 
+
+1)ID
+ - document.getElementById()
+ - ID는 유일하므로 1개 리턴
+ - const idElement = document.getElementById("id");
+
+2)태그명
+ - document.getElementsByTagName()
+ - 동일한 태그명 여러개일 수 있으므로 배열로 리턴
+ - const labelElements = document.getElementsByTagName("label");
+
+3)클래스명
+ - document.getElementsByClassName()
+ - 동일한 클래스가 여러개일 수 있으므로 배열로 리턴
+ - const classElements = document.getElementsByClass("form-control");
+
+4)name 속성값
+ - document.getElementsByName()
+ - 여러 이름이 존재할 수 있으므로 배열로 리턴
+ - const nameElements = document.getElementsByName("name");
+
+5)CSS 선택자
+ - document.querySelector() : 1건 조회
+ - document.querySelectorAll() : 모두 조회
+ - css 선택자의 문법을 이용해서 객체를 조회할 수 있다.
+ - const queryElements = document.querySelectorAll("[name=chk_pl]:checked");
