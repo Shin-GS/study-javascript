@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .normal-table {
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .normal-table th, .normal-table td {
+            border: 1px solid black;
+            padding: 5px 10px;
+        }
+
+        .normal-table thead tr {
+            background-color: yellow;
+        }
+
+        .striped tbody tr:nth-child(2n) {
+            background-color: grey;
+        }
+
+        .hover tbody tr:hover {
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div style="margin-bottom: 5px">
+        <button id="btnSave" onclick="doSave();" disabled>저장</button>
+        <button onclick="addLine();">라인추가</button>
+        <button id="btnRemove" onclick="removeLine();" disabled>라인삭제</button>
+    </div>
+    <table class ="normal-table striped hover">
+        <thead>
+            <tr>
+                <th><input type="checkbox" onchange="checkAll();"></th>
+                <th>Name</th>
+                <th>Company</th>
+                <th>Gender</th>
+                <th>Eamil</th>
+                <th>Phone</th>
+                <th>Address</th>
+            </tr>            
+        </thead>
+        <tbody id="tbBody"></tbody>
+    </table>
+
+    <script>
+        function addLine() {
+            const h = [];
+            h.push(`<tr>`);
+            h.push(`<td><input type="checkbox" name="chk" onchange="isChecked();" /></td>`);
+            h.push(`<td><input type="text" name="name" /></td>`);
+            h.push(`<td><input type="text" name="company" /></td>`);
+            h.push(`<td><select name="gender"><option value="male" selected>남자</option><option value="female">여자</option></select></td>`);
+            h.push(`<td><input type="text" name="email" /></td>`);
+            h.push(`<td><input type="text" name="phone" /></td>`);
+            h.push(`<td><input type="text" name="address" /></td>`);
+            h.push(`</tr>`);
+
+            document.querySelector("#tbBody").insertAdjacentHTML("beforeend", h.join(""));
+        }
+
+        function removeLine() {
+            const chks = document.querySelectorAll("[name=chk]:checked");
+            if(chks.length > 0) {
+                chks.forEach(chk => {
+                    let tr = chk;
+
+                    while(tr.tagName !== "TR") {
+                        tr = tr.parentNode;
+                    }
+
+                    tr.remove();
+                })
+            }
+        }
+        
+        function checkAll() {
+            const chks = document.querySelectorAll("[name=chk]");
+            const checkValue = event.target.checked;
+            if(chks.length>0) {
+                for(const chk of chks) {
+                    chk.checked = checkValue;
+                }
+            }
+
+            isChecked();
+        }
+
+        function isChecked() {
+            const chks = document.querySelectorAll("[name=chk]:checked");
+            if(chks.length>0) {
+                document.querySelector("#btnRemove").disabled=false;
+                document.querySelector("#btnSave").disabled=false;
+            }
+
+            else {
+                document.querySelector("#btnRemove").disabled=true;
+                document.querySelector("#btnSave").disabled=true;
+            }
+        }
+
+        async function doSave() {
+            const chks = document.querySelectorAll("[name=chk]");
+            if(chks.length > 0) {
+                let passRequired = true;
+                const blackRows = [];
+                const regexpEmail = /^([a-z]+\d*)+(\.?[a-z]+)+@[a-z]+(\.[a-z]{2,3})+$/;
+                const regexpTel = /^010-\d{4}-\d{4}$/;
+                let passEmail = true;
+                const wrongEmails = [];
+                let passPhone = true;
+                const wrongPhones = [];
+                const customers = [];
+
+                chks.forEach((chk, index) => {
+                    if(chk.checked) {
+                        let tr = chk;
+
+                        while(tr.tagName !== "TR") {
+                            tr = tr.parentNode;
+                        }
+
+                        console.log(tr.querySelectorAll("[name=name]")[0].value);
+                        const name = tr.querySelectorAll("[name=name]")[0].value;
+                        const company = tr.querySelectorAll("[name=company]")[0].value;
+                        const gender = tr.querySelectorAll("[name=gender]")[0].value;
+                        const email = tr.querySelectorAll("[name=email]")[0].value;
+                        const phone = tr.querySelectorAll("[name=phone]")[0].value;
+                        const address = tr.querySelectorAll("[name=address]")[0].value;
+                        customers.push({
+                            name,
+                            company,
+                            gender,
+                            email,
+                            phone,
+                            address
+                        });
+
+                        if(name === "" || company === "" || gender === "" || email === "" || phone === "" || address === "") {
+                            passRequired = false;
+                            blackRows.push(index + 1);
+                        }
+
+                        if(!regexpEmail.test(email)) {
+                            passEmail = false;
+                            wrongEmails.push(index + 1);
+                        }
+
+                        if(!regexpTel.test(phone)) {
+                            passPhone = false;
+                            wrongPhones.push(index + 1);
+                        }
+                    }
+                })
+
+                if(!passRequired) {
+                    return alert(`${blackRows.join(",")}번 행에 비어있는 값이 존재합니다.`);
+                }
+
+                if(!passEmail) {
+                    return alert(`${wrongEmails.join(",")}번 행에 잘못된 이메일 값이 존재합니다.`);
+                }
+
+                if(!passPhone) {
+                    return alert(`${wrongPhones.join(",")}번 행에 잘못된 전화번호 값이 존재합니다.`);
+                }
+
+                if(confirm("정말 저장하시겠습니까?")) {
+                    const failData = [];
+
+                    for(const customer of customers) {
+                        const res = await fetch("http://localhost:3000/customers", {
+                            method: "POST",
+                            body: JSON.stringify(customer),
+                            header: {
+                                "content-type": "application/json;charset=UTF-8"
+                            }
+                        });
+
+                        if(res.status !== 201) {
+                            failData.push(customer);
+                        }
+                    }
+
+                    if(failData.length > 0) {
+                        alert(`저장에 실패한 데이터가 ${failData.length}건 있습니다.`);
+                    }
+
+                    else {
+                        alert("정상적으로 저장이 되었습니다.");
+                    }
+                }
+            }
+
+            else {
+                alert("저장할 항목을 선택해주세요");
+            }
+        }
+    </script>
+</body>
+</html>
