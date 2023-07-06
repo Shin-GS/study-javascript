@@ -27,6 +27,23 @@
         .hover tbody tr:hover {
             background-color: pink;
         }
+        
+        .pagination {
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .pagination a {
+            color: black;
+            padding: 8px 16px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .pagination a.active {
+            background-color: deeppink;
+            color:white;
+        }
     </style>
 </head>
 <body>
@@ -43,17 +60,37 @@
         <thead>
             <tr>
                 <th><input type="checkbox" onchange="checkAll();"></th>
-                <th>Name</th>
-                <th>Company</th>
-                <th>Gender</th>
-                <th>Eamil</th>
-                <th>Phone</th>
-                <th>Address</th>
-            </tr>            
+                <th data-sort-key="name">Name</th>
+                <th data-sort-key="company">Company</th>
+                <th data-sort-key="gender">Gender</th>
+                <th data-sort-key="email">Eamil</th>
+                <th data-sort-key="phone">Phone</th>
+                <th data-sort-key="address">Address</th>
+            </tr>
+
+            <tr>
+                <th></th>
+                <th><input type ="search" data-filter-key="name" /></th>
+                <th><input type ="search" data-filter-key="company" /></th>
+                <th><input type ="search" data-filter-key="gender" /></th>
+                <th><input type ="search" data-filter-key="email" /></th>
+                <th><input type ="search" data-filter-key="phone" /></th>
+                <th><input type ="search" data-filter-key="address" /></th>
+            </tr>    
         </thead>
         <tbody id="tbBody"></tbody>
     </table>
+    <div id="pagination" class="pagination"></div>
     <script>
+        let customerData = [];
+        let filterData = [];
+        let lastSortKey = "";
+        let bAsc = true;
+        let totalPage = 0;
+        const pageCnt = 5;
+        let pageRange = [];
+        let currentPage = 1;
+
         async function doSearch() {
             const gender = document.querySelector("#gender").value;
             const name = document.querySelector("#name").value;
@@ -75,11 +112,15 @@
             const res = await fetch(url);
             const resJson = await res.json();
             console.log(resJson);
-            renderTable(resJson);
+
+            customerData = resJson;
+            filterData = [...resJson];
+            renderTable(customerData.slice(0, pageCnt));
+            paging(filterData);
         }
 
         function renderTable(data) {
-            const h = {};
+            const h = [];
             for(const item of data) {
                 h.push(`<tr>`);
                 h.push(`<td><input type="checkbox" name="chk" value="${item.id}" onchange="isChecked()"/></td>`);
@@ -92,7 +133,9 @@
                 h.push(`</tr>`);
             }
 
-            document.querySelector("#t bBody").innerHTML = h.join("");
+            if(h.length > 0) {
+                document.querySelector("#t bBody").innerHTML = h.join("");
+            }
         }
 
         function goToCreate() {
@@ -151,6 +194,146 @@
         function goToDetail(id) {
             document.location.href = `/list.html?id=${id}`;
         }
+
+        function sort(sortKey) {
+            if(sortKey === lastSortKey) {
+                bAsc = !bAsc;
+            }
+
+            let sortValue = bAsc? 1 : -1;
+
+            const sortData = filterData.sort(function(a, b) {
+                if(a[sortKey].toLowerCase() > b[sortKey].toLowerCase()) {
+                    return sortValue;
+                }
+
+                else if(a[sortKey].toLowerCase() < b[sortKey].toLowerCase()) {
+                    return -1 * sortValue;
+                }
+
+                else {
+                    return 0;
+                }
+            });
+
+            const startIdx = (currentPage -1) * pageCnt;
+            let endIndx = currentPage * pageCnt;
+            if(endIdx > sortData.length) {
+                endIndx = sortData.length;
+            }
+
+            renderTable(sortData.slice(startIdx, endIndx));
+            lastSortKey = sortKey;
+            filterData = sortData;
+            renderPagination();
+        }
+
+        function filter(filterKey) {
+            const filterValue = event.target.value.toLowerCase();
+            let endIdx = pageCnt;
+            if(filterValue !== "") {
+                filterData = filterData.filter(customer => customer[filterKey].toLowerCase().indexOf(filterValue) > -1);
+
+                if(filterData.length < endIdx) {
+                    endIdx = filterData.length;
+                }
+            }
+
+            else {
+                filterData = customerData;
+            }
+
+            currentPage = 1;
+            renderTable(filterData.slice(0, endIdx));
+            renderPagination();
+        }
+
+        function paging(data) {
+            totalPage = Math.ceil(data.length / pageCnt);
+            if(totalPage > 5) {
+                pageRange = [1,2,3,4,5];
+            }
+
+            else {
+                pageRange = [];
+                for(let i=1; i<=totalPage; i++) {
+                    pageRange.push(i);
+                }
+            }
+
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const h = {};
+            if(pageRange[0] > 1) {
+                h.push(`<a href="javascript:prevPage();">$laquo;</a>`);
+            }
+
+            for(const no of pageRange) {
+                h.push(`<a href="javascript:changePage(${no})" class="${no === currentPage? 'active' : ""}">${no}</a>`);
+            }
+
+            if(pageRange[pageRange.length-1] < totalPage) {
+                h.push(`<a href="javascript:nextPage();">$raquo;</a>`);
+            }
+
+            if(h.length > 0) {
+                document.querySelector("#pagination".innerHTML) = h.join("");
+            }
+        }
+
+        function changePage(pageNo) {
+            currentPage = pageNo;
+            const startIdx = (pageNo -1) * pageCnt;
+            let endIndx = pageNo * pageCnt;
+            if(endIdx > filterData.length) {
+                endIndx = filterData.length;
+            }
+
+            renderTable(filterData.slice(startIdx, endIndx));
+            renderPagination();
+        }
+
+        function prevPage() {
+            const pageno = pageRange[0];
+            pageRange = [pageno-5, pageno-4, pageno-3, pageno-2, pageno-1];
+            changePage(pageno-1);
+        }
+
+        function nextPage() {
+            const pageno = pageRange[pageRange.length - 1];
+            const startPageNo = pageNo + 1;
+            let endpageNo = pageNo + 5;
+            if(endPageNo > totalPage) {
+                endPageNo = totalPage;
+            }
+
+            pageRange = [];
+            for(let i=startPageNo;i<=endPageNo;i++) {
+                pageRange.push(i);
+            }
+
+            changePage(startPageNo);
+        }
+
+        window.addEventListener("load", () => {
+            document.querySelectorAll("th[data-sort-key]").forEach(th => {
+                th.addEventListener("click", () => {
+                    sort(th.getAttribute("data-sort-key"));
+                })
+            });
+
+            document.querySelectorAll("input[data-filter-key]").forEach(input => {
+                input.addEventListener("keyup", () => {
+                    if(event.keyCode === 13) {
+                        filter(input.getAttribute("data-filter-key"));
+                    }
+                })
+            });
+
+            doSearch();
+        })
     </script>
 </body>
 </html>
